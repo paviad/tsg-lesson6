@@ -6,7 +6,9 @@ const middlewares = jsonServer.defaults();
 server.use(middlewares);
 
 var loggedInUsers = {};
+
 server.use(jsonServer.bodyParser);
+
 server.post('/login/:username', function (req, res) {
   var username = req.params.username;
 

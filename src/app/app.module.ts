@@ -17,6 +17,7 @@ import { HeroService }          from './hero.service';
 import { MessageService }       from './message.service';
 import { MessagesComponent }    from './messages/messages.component';
 import { AuthService }          from './auth.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import { AuthService }          from './auth.service';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    HeroSearchComponent
+    HeroSearchComponent,
+    LoginComponent
   ],
   providers: [
     HeroService,
