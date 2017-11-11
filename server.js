@@ -42,6 +42,16 @@ function guid() {
     s4() + '-' + s4() + s4() + s4();
 }
 
+server.get('/logout', function (req, res) {
+  var auth = req.headers['authorization'];
+  var token = auth && auth.substring(7);
+  var bearer = token && loggedInUsers[token];
+
+  if (bearer) delete loggedInUsers[token];
+
+  res.sendStatus(204); // No content
+});
+
 server.use((req, res, next) => {
   if (isAuthorized(req)) { // add your authorization logic here
     next(); // continue to JSON Server router
@@ -55,8 +65,9 @@ function isAuthorized(req) {
   // authorization: Bearer ****************
   var auth = req.headers['authorization'];
   var token = auth && auth.substring(7);
+  var bearer = token && loggedInUsers[token];
 
-  return !!token;
+  return !!bearer;
 }
 
 server.use(router);

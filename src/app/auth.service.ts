@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class AuthService {
@@ -8,7 +9,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  login(username: string, password: string) {
+  login(username: string, password: string): Observable<{ token: string }> {
     var rc = this.http.post<{ token: string }>(
       `http://localhost:3000/login/${username}`, {
         password: password
@@ -16,6 +17,13 @@ export class AuthService {
       tap(r => {
         this.token = r.token;
       }));
+    return rc;
+  }
+
+  logout() {
+    var opts = { headers: new HttpHeaders() };
+    this.addToken(opts);
+    var rc = this.http.get(`http://localhost:3000/logout`, opts);
     return rc;
   }
 

@@ -23,4 +23,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  doLogout() {
+    this.auth.logout().subscribe();
+  }
 }
